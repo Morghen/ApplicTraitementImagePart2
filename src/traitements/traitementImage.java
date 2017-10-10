@@ -21,6 +21,7 @@ public class traitementImage {
     public int[][] tabG;
     public int[][] tabB;
     public int[][] tabGray;
+    public int[][] tabThres;
     
     public traitementImage(){
         
@@ -187,5 +188,23 @@ public class traitementImage {
             }
         }
         this.tabGray = tabGrayTmp;
+    }
+    
+    public void simpleThres(int seuil) {
+        getGrayMatrix();
+        tabThres = new int[tabGray.length][tabGray[0].length];
+        for(int i=0;i<tabGray.length;i++)
+        {
+            for(int j=0;j<tabGray[0].length;j++)
+            {
+                if(tabGray[i][j] < seuil)
+                {
+                    tabThres[i][j] = 0;
+                }
+                else
+                    tabThres[i][j] = 255;
+            }
+        }
+        // Retransformer en image et afficher
     }
 }

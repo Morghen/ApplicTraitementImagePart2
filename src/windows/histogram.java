@@ -150,44 +150,7 @@ public class histogram extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
-                // Tableau de pixel random
-                /*Random rng = new Random();
-                int[][] tabGray = new int[500][500];
-                for(int i = 0;i<500;i++)
-                {
-                    for(int j = 0;j<500;j++)
-                    {
-                        tabGray[i][j] = rng.nextInt(256);
-                    }
-                }
-                // Mappage sur TreeMap
-                mapGray = new TreeMap<>();
-                for(int i = 0;i<255;i++)
-                {
-                    mapGray.put(i, 0);
-                }
-                for(int i = 0;i<gray.length;i++)
-                {
-                    for(int j = 0;j<gray[0].length;j++)
-                    {
-                        if(mapGray.containsKey((int)gray[i][j]))
-                        {
-                            mapGray.replace(gray[i][j],mapGray.get(gray[i][j]) + 1);
-                        }
-                    }
-                }
-                // Chercher la maxVal
-                maxVal = 0;
-                for(int i = 0;i<mapGray.size();i++)
-                {
-                    if(mapGray.get(i) > maxVal)
-                    {
-                        maxVal = mapGray.get(i);
-                    }
-                }
-                coefY = maxVal/510;*/
-                
+                             
                 histogram dialog = new histogram(new javax.swing.JFrame(), true, new int[0][0]);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
