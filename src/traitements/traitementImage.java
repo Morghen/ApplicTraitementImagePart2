@@ -20,6 +20,7 @@ public class traitementImage {
     public int[][] tabR;
     public int[][] tabG;
     public int[][] tabB;
+    public int[][] tabGray;
     
     public traitementImage(){
         
@@ -175,4 +176,16 @@ public class traitementImage {
         return bleu.getBlue();
     }
     
+    public void getGrayMatrix() {
+        ImageToMatrix();
+        int[][] tabGrayTmp = new int[tabR.length][tabR[0].length];
+        for(int i = 0;i<tabR.length;i++)
+        {
+            for(int j = 0;j<tabR[0].length;j++)
+            {
+                tabGrayTmp[i][j] = (tabR[i][j] + tabG[i][j] + tabB[i][j]) / 3;
+            }
+        }
+        this.tabGray = tabGrayTmp;
+    }
 }

@@ -462,7 +462,8 @@ public class AppWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_expansionExtractionMenuItemActionPerformed
 
     private void HistogramMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistogramMenuItemActionPerformed
-        histogram histo = new histogram(this,true);
+        imgTrt.getGrayMatrix();
+        histogram histo = new histogram(this,false,imgTrt.tabGray);
         histo.setVisible(true);
     }//GEN-LAST:event_HistogramMenuItemActionPerformed
 

@@ -2,13 +2,10 @@
 package windows;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  *
@@ -17,13 +14,43 @@ import javax.swing.JPanel;
 
 
 public class histogram extends javax.swing.JDialog {
-        
-    public histogram(java.awt.Frame parent, boolean modal) {
+    
+    static public int maxVal;
+    static public double coefY;
+    static public Map<Integer,Integer> mapGray;
+    static public int[][] gray;
+            
+    public histogram(java.awt.Frame parent, boolean modal,int[][] tab) {
         super(parent, modal);
+        setParam(tab);
+        mapGray = new TreeMap<>();
+        for(int i = 0;i<255;i++)
+        {
+            mapGray.put(i, 0);
+        }
+        for(int i = 0;i<gray.length;i++)
+        {
+            for(int j = 0;j<gray[0].length;j++)
+            {
+                if(mapGray.containsKey((int)gray[i][j]))
+                {
+                    mapGray.replace(gray[i][j],mapGray.get(gray[i][j]) + 1);
+                }
+            }
+        }
+        // Chercher la maxVal
+        maxVal = 0;
+        for(int i = 0;i<mapGray.size();i++)
+        {
+            if(mapGray.get(i) > maxVal)
+            {
+                maxVal = mapGray.get(i);
+            }
+        }
+        coefY = maxVal/510;
         initComponents();
         setLocationRelativeTo(null);
     }
-   
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -46,14 +73,27 @@ public class histogram extends javax.swing.JDialog {
                 g2.drawLine(50,10,50,h-30);
                 g2.drawLine(50,h-30,w-50,h-30);
                 g2.drawString("0",45,h-15);
-                g2.drawString("255",w-45,h-15);
-                // Dessin les 2 axes
-                g2.dispose();
+                g2.drawString("255",w-100,h-15);
+                g2.drawString(Integer.toString(maxVal),10,10);
+                // Dessine les 2 axes
+                int offset = 3;
+                for(int i = 0;i<255;i++)
+                {
+                    if(mapGray.get(i) == 0)
+                    {
+                        offset = offset+3;
+                        continue;
+                    }
+                    g2.drawLine(50 + offset,h-31,50 + offset,h - 31 - (int)(mapGray.get(i) / coefY));
+                    offset= offset+3;
+                }
+                // Dessine l'histogramme
             }
         };
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Histogramme");
+        setResizable(false);
 
         PanelDessin.setPreferredSize(new java.awt.Dimension(900, 550));
 
@@ -72,11 +112,11 @@ public class histogram extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelDessin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PanelDessin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelDessin, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+            .addComponent(PanelDessin, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -110,7 +150,45 @@ public class histogram extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                histogram dialog = new histogram(new javax.swing.JFrame(), true);
+                
+                // Tableau de pixel random
+                /*Random rng = new Random();
+                int[][] tabGray = new int[500][500];
+                for(int i = 0;i<500;i++)
+                {
+                    for(int j = 0;j<500;j++)
+                    {
+                        tabGray[i][j] = rng.nextInt(256);
+                    }
+                }
+                // Mappage sur TreeMap
+                mapGray = new TreeMap<>();
+                for(int i = 0;i<255;i++)
+                {
+                    mapGray.put(i, 0);
+                }
+                for(int i = 0;i<gray.length;i++)
+                {
+                    for(int j = 0;j<gray[0].length;j++)
+                    {
+                        if(mapGray.containsKey((int)gray[i][j]))
+                        {
+                            mapGray.replace(gray[i][j],mapGray.get(gray[i][j]) + 1);
+                        }
+                    }
+                }
+                // Chercher la maxVal
+                maxVal = 0;
+                for(int i = 0;i<mapGray.size();i++)
+                {
+                    if(mapGray.get(i) > maxVal)
+                    {
+                        maxVal = mapGray.get(i);
+                    }
+                }
+                coefY = maxVal/510;*/
+                
+                histogram dialog = new histogram(new javax.swing.JFrame(), true, new int[0][0]);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -120,6 +198,10 @@ public class histogram extends javax.swing.JDialog {
                 dialog.setVisible(true);
             }
         });
+    }
+    
+    public void setParam(int[][] param) {
+        gray = param;
     }
 
     
