@@ -11,9 +11,9 @@ package windows;
  */
 public class thresholdMulti extends javax.swing.JDialog {
 
-    /**
-     * Creates new form ThresholdMulti
-     */
+    public int[] val = new int[3];
+    
+    
     public thresholdMulti(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -28,21 +28,100 @@ public class thresholdMulti extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        OKBoutton = new javax.swing.JButton();
+        CancelButton = new javax.swing.JButton();
+        LabelSeuil1 = new javax.swing.JLabel();
+        LabelSeuil2 = new javax.swing.JLabel();
+        LabelSeuil3 = new javax.swing.JLabel();
+        SpinnerS1 = new javax.swing.JSpinner();
+        SpinnerS2 = new javax.swing.JSpinner();
+        SpinnerS3 = new javax.swing.JSpinner();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        OKBoutton.setText("OK");
+        OKBoutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OKBouttonActionPerformed(evt);
+            }
+        });
+
+        CancelButton.setText("Annuler");
+        CancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelButtonActionPerformed(evt);
+            }
+        });
+
+        LabelSeuil1.setText("Seuil 1 :");
+
+        LabelSeuil2.setText("Seuil 2 :");
+
+        LabelSeuil3.setText("Seuil 3 :");
+
+        SpinnerS1.setModel(new javax.swing.SpinnerNumberModel(0, 0, 255, 1));
+
+        SpinnerS2.setModel(new javax.swing.SpinnerNumberModel(0, 0, 255, 1));
+
+        SpinnerS3.setModel(new javax.swing.SpinnerNumberModel(0, 0, 255, 1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addComponent(OKBoutton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(LabelSeuil2)
+                            .addComponent(LabelSeuil1)
+                            .addComponent(LabelSeuil3))))
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(CancelButton)
+                    .addComponent(SpinnerS1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SpinnerS2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SpinnerS3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(76, 76, 76)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelSeuil1)
+                    .addComponent(SpinnerS1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelSeuil2)
+                    .addComponent(SpinnerS2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelSeuil3)
+                    .addComponent(SpinnerS3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(OKBoutton)
+                    .addComponent(CancelButton))
+                .addGap(50, 50, 50))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void OKBouttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKBouttonActionPerformed
+        setValues((int)SpinnerS1.getValue(),(int)SpinnerS2.getValue(),(int)SpinnerS3.getValue());
+        dispose();
+    }//GEN-LAST:event_OKBouttonActionPerformed
+
+    private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
+        setValues(-1,0,0);
+        dispose();
+    }//GEN-LAST:event_CancelButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -86,7 +165,26 @@ public class thresholdMulti extends javax.swing.JDialog {
             }
         });
     }
+    
+    public void setValues(int a,int b, int c) {
+        val[0] = a;
+        val[1] = b;
+        val[2] = c;
+        
+    }
+    
+    public int[] getValues() {
+        return val;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CancelButton;
+    private javax.swing.JLabel LabelSeuil1;
+    private javax.swing.JLabel LabelSeuil2;
+    private javax.swing.JLabel LabelSeuil3;
+    private javax.swing.JButton OKBoutton;
+    private javax.swing.JSpinner SpinnerS1;
+    private javax.swing.JSpinner SpinnerS2;
+    private javax.swing.JSpinner SpinnerS3;
     // End of variables declaration//GEN-END:variables
 }

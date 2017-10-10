@@ -221,4 +221,28 @@ public class traitementImage {
         }
         MatrixToImage(tabThres);
     }
+    
+    public void multiThres(int[] seuils) {
+        int a,b,c;
+        a = seuils[0];
+        b = seuils[1];
+        c = seuils[2];
+        getGrayMatrix();
+        tabThres = new int[tabGray.length][tabGray[0].length];
+        for(int i=0;i<tabGray.length;i++)
+        {
+            for(int j=0;j<tabGray[0].length;j++)
+            {
+                if(tabGray[i][j] < a)
+                    tabThres[i][j] = 0;
+                else if(tabGray[i][j] < b)
+                    tabThres[i][j] = 84;
+                else if(tabGray[i][j] < c)
+                    tabThres[i][j] = 168;
+                else
+                    tabThres[i][j] = 255;
+            }
+        }
+        MatrixToImage(tabThres);
+    }
 }

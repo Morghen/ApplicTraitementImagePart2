@@ -269,6 +269,11 @@ public class appWindow extends javax.swing.JFrame {
         editionMenu.add(SeuillageMenuItem);
 
         SeuillageMultMenuItem.setText("Seuillage multiple");
+        SeuillageMultMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SeuillageMultMenuItemActionPerformed(evt);
+            }
+        });
         editionMenu.add(SeuillageMultMenuItem);
 
         EgalisationHistoMenuItem.setText("Egalisation d'histogramme");
@@ -479,6 +484,7 @@ public class appWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_expansionExtractionMenuItemActionPerformed
 
     private void HistogramMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistogramMenuItemActionPerformed
+        imgTrt.setImage(imageDep);
         imgTrt.getGrayMatrix();
         histogram histo = new histogram(this,false,imgTrt.tabGray);
         histo.setVisible(true);
@@ -494,6 +500,18 @@ public class appWindow extends javax.swing.JFrame {
         imgTrt.simpleThres(value);
         imageLabelD.setIcon(new ImageIcon(imgTrt.getImage()));       
     }//GEN-LAST:event_SeuillageMenuItemActionPerformed
+
+    private void SeuillageMultMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeuillageMultMenuItemActionPerformed
+        thresholdMulti multi = new thresholdMulti(this,true);
+        multi.setVisible(true);
+        int[] values;
+        values = multi.getValues();
+        if(values[0] == -1)
+            return;
+        imgTrt.setImage(imageDep);
+        imgTrt.multiThres(values);
+        imageLabelD.setIcon(new ImageIcon(imgTrt.getImage()));
+    }//GEN-LAST:event_SeuillageMultMenuItemActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
