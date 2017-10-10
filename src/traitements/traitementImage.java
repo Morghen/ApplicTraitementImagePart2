@@ -148,7 +148,21 @@ public class traitementImage {
             }
         }
         setImage(reformed);
-        System.out.println("Image reformée");
+        System.out.println("Image RGB reformée RGB");
+    }
+    
+    public void MatrixToImage(int[][] gray) {
+        BufferedImage reformed = new BufferedImage(gray.length,gray[0].length,BufferedImage.TYPE_BYTE_GRAY);
+        for(int i = 0;i<gray.length;i++)
+        {
+            for(int j = 0;j<gray[0].length;j++)
+            {
+                Color tmp = new Color(gray[i][j],gray[i][j],gray[i][j]);
+                reformed.setRGB(i,j,tmp.getRGB());
+            }
+        }
+        setImage(reformed);
+        System.out.println("Image nv gris reformée");
     }
     
     public int getHeight() {
@@ -205,6 +219,6 @@ public class traitementImage {
                     tabThres[i][j] = 255;
             }
         }
-        // Retransformer en image et afficher
+        MatrixToImage(tabThres);
     }
 }
