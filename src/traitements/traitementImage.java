@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import static java.lang.Math.floor;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  *
@@ -244,5 +246,55 @@ public class traitementImage {
             }
         }
         MatrixToImage(tabThres);
+    }
+    
+    public void equalizeHisto() {
+        getGrayMatrix();
+        int h,w,size;
+        h = this.getHeight();
+        w = this.getWidth();
+        size = h*w;
+        Map<Integer,Integer> histoN = new TreeMap();
+        Map<Integer,Double> histoC = new TreeMap();
+        for(int i = 0;i<256;i++)
+        {
+            histoN.put(i, 0);
+            histoC.put(i, 0.0);
+        }
+        // Mappage sur table normale
+        for(int i = 0;i<tabGray.length;i++)
+        {
+            for(int j = 0;j<tabGray[0].length;j++)
+            {
+                if(histoN.containsKey(tabGray[i][j]))
+                {
+                    histoN.replace(tabGray[i][j], histoN.get(tabGray[i][j]) + 1);
+                }
+            }
+        }
+        // Mappage cumulé
+        histoC.replace(0, (double)histoN.get(0) / size);
+        for(int i = 1;i<256;i++)
+        {
+            histoC.replace(i, histoC.get(i-1) + ((double)histoN.get(i)/size));
+        }
+        // Total doit faire 1
+        for(int i = 0;i<256;i++)
+            System.out.println("Valeur totale a  " + i + " : " + histoC.get(i));
+        int[][] tabTest = new int[tabGray.length][tabGray[0].length];
+        for(int a = 0;a<256;a++)
+        {
+            for(int i = 0;i<tabGray.length;i++)
+            {
+                for(int j = 0;j<tabGray[0].length;j++)
+                {
+                    if(tabGray[i][j] == a)
+                    {
+                        tabTest[i][j] = (int)floor(255*histoC.get(a));
+                    }
+                }
+            }
+        }
+        MatrixToImage(tabTest);       
     }
 }

@@ -24,7 +24,7 @@ public class histogram extends javax.swing.JDialog {
         super(parent, modal);
         setParam(tab);
         mapGray = new TreeMap<>();
-        for(int i = 0;i<255;i++)
+        for(int i = 0;i<256;i++)
         {
             mapGray.put(i, 0);
         }

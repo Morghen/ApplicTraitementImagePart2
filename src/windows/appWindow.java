@@ -277,6 +277,11 @@ public class appWindow extends javax.swing.JFrame {
         editionMenu.add(SeuillageMultMenuItem);
 
         EgalisationHistoMenuItem.setText("Egalisation d'histogramme");
+        EgalisationHistoMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EgalisationHistoMenuItemActionPerformed(evt);
+            }
+        });
         editionMenu.add(EgalisationHistoMenuItem);
 
         menuPrincipal.add(editionMenu);
@@ -512,6 +517,12 @@ public class appWindow extends javax.swing.JFrame {
         imgTrt.multiThres(values);
         imageLabelD.setIcon(new ImageIcon(imgTrt.getImage()));
     }//GEN-LAST:event_SeuillageMultMenuItemActionPerformed
+
+    private void EgalisationHistoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EgalisationHistoMenuItemActionPerformed
+        imgTrt.setImage(imageDep);
+        imgTrt.equalizeHisto();
+        imageLabelD.setIcon(new ImageIcon(imgTrt.getImage()));
+    }//GEN-LAST:event_EgalisationHistoMenuItemActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
