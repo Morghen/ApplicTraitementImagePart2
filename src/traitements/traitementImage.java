@@ -100,23 +100,31 @@ public class traitementImage {
         {
             for(int i=0;i<tab2.length-1;i++)
             {
-                // points a interpoler
-                double p = i/coef;
-                double q = j/coef;
+                try
+                {
+                    // points a interpoler
+                    double p = i/coef;
+                    double q = j/coef;
 
-                // trouver les 4 points a interpoler
-                int a,b,c,d;
-                a = (int)floor(p);  // X
-                b = a+1;            // X+1
-                c = (int)floor(q);  // Y
-                d = c+1;            // Y+1
+                    // trouver les 4 points a interpoler
+                    int a,b,c,d;
+                    a = (int)floor(p);  // X
+                    b = a+1;            // X+1
+                    c = (int)floor(q);  // Y
+                    d = c+1;            // Y+1
 
 
-                double Vn1,Vn2,V;
-                Vn1 = tab[a][c] + ((tab[b][c] - tab[a][c]) / ((b) - a)) * (p - a);
-                Vn2 = tab[a][d] + ((tab[b][d] - tab[a][d]) / ((b) - a)) * (p - a);
-                V = Vn1 + ((Vn2 - Vn1)/((d)-c)) * (q - c);
-                tab2[i][j] = (int)floor(V);
+                    double Vn1,Vn2,V;
+                    Vn1 = tab[a][c] + ((tab[b][c] - tab[a][c]) / ((b) - a)) * (p - a);
+                    Vn2 = tab[a][d] + ((tab[b][d] - tab[a][d]) / ((b) - a)) * (p - a);
+                    V = Vn1 + ((Vn2 - Vn1)/((d)-c)) * (q - c);
+                    tab2[i][j] = (int)floor(V);
+                }
+                catch(ArrayIndexOutOfBoundsException e)
+                {
+                    //
+                }
+                
             }
         }
         System.out.println("Interpolation terminée");
