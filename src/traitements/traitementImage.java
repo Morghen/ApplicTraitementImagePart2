@@ -101,7 +101,8 @@ public class traitementImage {
         {
             for(int i=0;i<tab2.length-1;i++)
             {
-                try {
+                try
+                {
                     // points a interpoler
                     double p = i/coef;
                     double q = j/coef;
@@ -122,7 +123,7 @@ public class traitementImage {
                 }
                 catch(ArrayIndexOutOfBoundsException e)
                 {
-                    e.printStackTrace();
+                    //
                 }
                 
             }

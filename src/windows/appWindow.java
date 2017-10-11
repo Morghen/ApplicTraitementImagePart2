@@ -492,6 +492,8 @@ public class appWindow extends javax.swing.JFrame {
         imgTrt.setImage(imageDep);
         imgTrt.getGrayMatrix();
         histogram histo = new histogram(this,false,imgTrt.tabGray);
+        imgTrt.MatrixToImage(imgTrt.tabGray);
+        imageLabelD.setIcon(new ImageIcon(imgTrt.getImage()));
         histo.setVisible(true);
     }//GEN-LAST:event_HistogramMenuItemActionPerformed
 
