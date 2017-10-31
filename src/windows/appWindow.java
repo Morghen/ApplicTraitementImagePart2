@@ -305,9 +305,19 @@ public class appWindow extends javax.swing.JFrame {
         editionMenu.add(DilatationMenuItem);
 
         OuvertureMenuItem.setText("Ouverture");
+        OuvertureMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OuvertureMenuItemActionPerformed(evt);
+            }
+        });
         editionMenu.add(OuvertureMenuItem);
 
         FermetureMenuItem.setText("Fermeture");
+        FermetureMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FermetureMenuItemActionPerformed(evt);
+            }
+        });
         editionMenu.add(FermetureMenuItem);
 
         menuPrincipal.add(editionMenu);
@@ -563,6 +573,20 @@ public class appWindow extends javax.swing.JFrame {
         imgTrt.dilate();
         imageLabelD.setIcon(new ImageIcon(imgTrt.getImage()));
     }//GEN-LAST:event_DilatationMenuItemActionPerformed
+
+    private void OuvertureMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OuvertureMenuItemActionPerformed
+        imgTrt.setImage(imageDep);
+        imgTrt.erode();
+        imgTrt.dilate();
+        imageLabelD.setIcon(new ImageIcon(imgTrt.getImage()));
+    }//GEN-LAST:event_OuvertureMenuItemActionPerformed
+
+    private void FermetureMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FermetureMenuItemActionPerformed
+        imgTrt.setImage(imageDep);
+        imgTrt.dilate();
+        imgTrt.erode();
+        imageLabelD.setIcon(new ImageIcon(imgTrt.getImage()));
+    }//GEN-LAST:event_FermetureMenuItemActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
