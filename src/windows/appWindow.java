@@ -94,6 +94,10 @@ public class appWindow extends javax.swing.JFrame {
         SeuillageMenuItem = new javax.swing.JMenuItem();
         SeuillageMultMenuItem = new javax.swing.JMenuItem();
         EgalisationHistoMenuItem = new javax.swing.JMenuItem();
+        ErosionMenuItem = new javax.swing.JMenuItem();
+        DilatationMenuItem = new javax.swing.JMenuItem();
+        OuvertureMenuItem = new javax.swing.JMenuItem();
+        FermetureMenuItem = new javax.swing.JMenuItem();
         aproposMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -283,6 +287,28 @@ public class appWindow extends javax.swing.JFrame {
             }
         });
         editionMenu.add(EgalisationHistoMenuItem);
+
+        ErosionMenuItem.setText("Erosion");
+        ErosionMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ErosionMenuItemActionPerformed(evt);
+            }
+        });
+        editionMenu.add(ErosionMenuItem);
+
+        DilatationMenuItem.setText("Dilatation");
+        DilatationMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DilatationMenuItemActionPerformed(evt);
+            }
+        });
+        editionMenu.add(DilatationMenuItem);
+
+        OuvertureMenuItem.setText("Ouverture");
+        editionMenu.add(OuvertureMenuItem);
+
+        FermetureMenuItem.setText("Fermeture");
+        editionMenu.add(FermetureMenuItem);
 
         menuPrincipal.add(editionMenu);
 
@@ -526,6 +552,18 @@ public class appWindow extends javax.swing.JFrame {
         imageLabelD.setIcon(new ImageIcon(imgTrt.getImage()));
     }//GEN-LAST:event_EgalisationHistoMenuItemActionPerformed
 
+    private void ErosionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ErosionMenuItemActionPerformed
+        imgTrt.setImage(imageDep);
+        imgTrt.erode();
+        imageLabelD.setIcon(new ImageIcon(imgTrt.getImage()));
+    }//GEN-LAST:event_ErosionMenuItemActionPerformed
+
+    private void DilatationMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DilatationMenuItemActionPerformed
+        imgTrt.setImage(imageDep);
+        imgTrt.dilate();
+        imageLabelD.setIcon(new ImageIcon(imgTrt.getImage()));
+    }//GEN-LAST:event_DilatationMenuItemActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -639,7 +677,10 @@ public class appWindow extends javax.swing.JFrame {
     private javax.swing.JRadioButton BouttonPalette;
     private javax.swing.JRadioButton BouttonROI;
     private javax.swing.JButton BouttonValider;
+    private javax.swing.JMenuItem DilatationMenuItem;
     private javax.swing.JMenuItem EgalisationHistoMenuItem;
+    private javax.swing.JMenuItem ErosionMenuItem;
+    private javax.swing.JMenuItem FermetureMenuItem;
     private javax.swing.ButtonGroup GroupageBouttonOutils;
     private javax.swing.JMenuItem HistogramMenuItem;
     private javax.swing.JLabel LabelB;
@@ -647,6 +688,7 @@ public class appWindow extends javax.swing.JFrame {
     private javax.swing.JLabel LabelHauteur;
     private javax.swing.JLabel LabelLargeur;
     private javax.swing.JLabel LabelR;
+    private javax.swing.JMenuItem OuvertureMenuItem;
     private javax.swing.JMenuItem SeuillageMenuItem;
     private javax.swing.JMenuItem SeuillageMultMenuItem;
     private javax.swing.JMenu aproposMenu;

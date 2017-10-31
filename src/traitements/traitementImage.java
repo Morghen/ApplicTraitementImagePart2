@@ -169,7 +169,7 @@ public class traitementImage {
             for(int j = 0;j<gray[0].length;j++)
             {
                 Color tmp = new Color(gray[i][j],gray[i][j],gray[i][j]);
-                reformed.setRGB(i,j,tmp.getRGB());
+                reformed.setRGB(i, j, tmp.getRGB());
             }
         }
         setImage(reformed);
@@ -307,5 +307,51 @@ public class traitementImage {
         MatrixToImage(tabTest);
         histogram histoEq = new histogram(null,true,tabTest);
         histoEq.setVisible(true);
+    }
+    
+    public void erode()
+    {
+        getGrayMatrix();
+        int tabErode[][] = new int[tabGray.length][tabGray[0].length];
+        for(int i = 1;i<tabErode.length - 1;i++)
+        {
+            for(int j = 1;j<tabErode[0].length - 1;j++)
+            {
+                int minVal = 255;
+                for(int a = i-1;a<i+2;a++)
+                {
+                    for(int b = j-1;b<j+2;b++)
+                    {
+                        if(minVal>tabGray[a][b])
+                            minVal = tabGray[a][b];
+                    }
+                } 
+                tabErode[i][j] = minVal;
+            }
+        }
+        MatrixToImage(tabErode);
+    }
+    
+    public void dilate()
+    {
+        getGrayMatrix();
+        int tabDilate[][] = new int[tabGray.length][tabGray[0].length];
+        for(int i = 1;i<tabDilate.length - 1;i++)
+        {
+            for(int j = 1;j<tabDilate[0].length - 1;j++)
+            {
+                int maxVal = 0;
+                for(int a = i-1;a<i+2;a++)
+                {
+                    for(int b = j-1;b<j+2;b++)
+                    {
+                        if(maxVal<tabGray[a][b])
+                            maxVal = tabGray[a][b];
+                    }
+                } 
+                tabDilate[i][j] = maxVal;
+            }
+        }
+        MatrixToImage(tabDilate);
     }
 }
