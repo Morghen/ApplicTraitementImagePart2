@@ -209,8 +209,8 @@ public class traitementImage {
         {
             for(int j = 0;j<tabR[0].length;j++)
             {
-                int avg = (tabR[i][j] + tabG[i][j] + tabB[i][j]) / 3;
-                tabGrayTmp[i][j] = avg;
+                double avg = (tabR[i][j]*0.2126) + (tabG[i][j]*0.7152) + (tabB[i][j]*0.0722);
+                tabGrayTmp[i][j] = (int)floor(avg);
             }
         }
         this.tabGray = tabGrayTmp;
