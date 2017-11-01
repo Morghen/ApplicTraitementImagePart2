@@ -9,8 +9,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import static java.lang.Math.floor;
+import static java.lang.Math.sqrt;
+import static java.util.Collections.sort;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.Vector;
 import windows.histogram;
 
 /**
@@ -209,8 +212,8 @@ public class traitementImage {
         {
             for(int j = 0;j<tabR[0].length;j++)
             {
-                double avg = (tabR[i][j]*0.2126) + (tabG[i][j]*0.7152) + (tabB[i][j]*0.0722);
-                tabGrayTmp[i][j] = (int)floor(avg);
+                double avg = (double)(tabR[i][j]*0.299) + (double)(tabG[i][j]*0.587) + (double)(tabB[i][j]*0.114);
+                tabGrayTmp[i][j] = (int)avg;
             }
         }
         this.tabGray = tabGrayTmp;
@@ -314,20 +317,28 @@ public class traitementImage {
     {
         getGrayMatrix();
         int tabErode[][] = new int[tabGray.length][tabGray[0].length];
-        for(int i = 1;i<tabErode.length - 1;i++)
+        for(int i = 0;i<tabErode.length;i++)
         {
-            for(int j = 1;j<tabErode[0].length - 1;j++)
+            for(int j = 0;j<tabErode[0].length;j++)
             {
-                int minVal = 255;
-                for(int a = i-1;a<i+2;a++)
+                if(i==0 || j==0 || i==(tabGray.length - 1) ||  j==(tabGray[0].length - 1))
                 {
-                    for(int b = j-1;b<j+2;b++)
+                    tabErode[i][j] = tabGray[i][j];
+                }
+                else
+                {
+                    int minVal = 255;
+                    for(int a = i-1;a<i+2;a++)
                     {
-                        if(minVal>tabGray[a][b])
-                            minVal = tabGray[a][b];
-                    }
-                } 
-                tabErode[i][j] = minVal;
+                        for(int b = j-1;b<j+2;b++)
+                        {
+                            if(minVal>tabGray[a][b])
+                                minVal = tabGray[a][b];
+                        }
+                    } 
+                    tabErode[i][j] = minVal;
+                }
+                
             }
         }
         MatrixToImage(tabErode);
@@ -337,22 +348,272 @@ public class traitementImage {
     {
         getGrayMatrix();
         int tabDilate[][] = new int[tabGray.length][tabGray[0].length];
-        for(int i = 1;i<tabDilate.length - 1;i++)
+        for(int i = 0;i<tabDilate.length;i++)
         {
-            for(int j = 1;j<tabDilate[0].length - 1;j++)
+            for(int j = 0;j<tabDilate[0].length;j++)
             {
-                int maxVal = 0;
-                for(int a = i-1;a<i+2;a++)
+                if(i==0 || j==0 || i==(tabGray.length - 1) ||  j==(tabGray[0].length - 1))
                 {
-                    for(int b = j-1;b<j+2;b++)
+                    tabDilate[i][j] = tabGray[i][j];
+                }
+                else
+                {
+                    int maxVal = 0;
+                    for(int a = i-1;a<i+2;a++)
                     {
-                        if(maxVal<tabGray[a][b])
-                            maxVal = tabGray[a][b];
-                    }
-                } 
-                tabDilate[i][j] = maxVal;
+                        for(int b = j-1;b<j+2;b++)
+                        {
+                            if(maxVal<tabGray[a][b])
+                                maxVal = tabGray[a][b];
+                        }
+                    } 
+                    tabDilate[i][j] = maxVal;
+                }
+                
             }
         }
         MatrixToImage(tabDilate);
+    }
+    
+    public void median() {
+        getGrayMatrix();
+        int tabMedian[][] = new int[tabGray.length][tabGray[0].length];
+        for(int i = 0;i<tabMedian.length;i++)
+        {
+            for(int j = 0;j<tabMedian[0].length;j++)
+            {
+                if(i==0 || j==0 || i==(tabGray.length - 1) ||  j==(tabGray[0].length - 1))
+                {
+                    tabMedian[i][j] = tabGray[i][j];
+                }
+                else
+                {
+                    Vector<Integer> vect = new Vector<>();
+                    for(int a = i-1;a<i+2;a++)
+                    {
+                        for(int b = j-1;b<j+2;b++)
+                        {
+                            vect.add(tabGray[a][b]);
+                        }
+                    }
+                    sort(vect);
+                    tabMedian[i][j] = vect.elementAt(4);
+                }               
+            }
+        }
+        MatrixToImage(tabMedian);
+    }
+    
+    public void moyen() {
+        getGrayMatrix();
+        int tabMoyen[][] = new int[tabGray.length][tabGray[0].length];
+        for(int i = 0;i<tabMoyen.length;i++)
+        {
+            for(int j = 0;j<tabMoyen[0].length;j++)
+            {
+                if(i==0 || j==0 || i==(tabGray.length - 1) ||  j==(tabGray[0].length - 1))
+                {
+                    tabMoyen[i][j] = tabGray[i][j];
+                }
+                else
+                {
+                    int sum = 0;
+                    for(int a = i-1;a<i+2;a++)
+                    {
+                        for(int b = j-1;b<j+2;b++)
+                        {
+                            sum = sum + tabGray[a][b];
+                        }
+                    }
+                    tabMoyen[i][j] = sum / 9;
+                }               
+            }
+        }
+        MatrixToImage(tabMoyen);
+    }
+    
+    public void gauss() {
+        getGrayMatrix();
+        int tabGauss[][] = new int[tabGray.length][tabGray[0].length];
+        for(int i = 0;i<tabGauss.length;i++)
+        {
+            for(int j = 0;j<tabGauss[0].length;j++)
+            {
+                if(i==0 || j==0 || i==(tabGray.length - 1) ||  j==(tabGray[0].length - 1))
+                {
+                    tabGauss[i][j] = tabGray[i][j];
+                }
+                else
+                {
+                    int sum = 0;
+                    sum = sum + tabGray[i-1][j-1] + (tabGray[i][j-1] * 2) + tabGray[i+1][j-1];      // Premiere ligne
+                    sum = sum + (tabGray[i-1][j] * 2) + (tabGray[i][j]*4) + (tabGray[i+1][j] * 2);  // Deuxieme ligne
+                    sum = sum + tabGray[i-1][j+1] + (tabGray[i+1][j+1] * 2) + tabGray[i+1][j+1];    // Troisieme ligne
+                    tabGauss[i][j] = sum/16;
+                }               
+            }
+        }
+        MatrixToImage(tabGauss);
+    }
+    
+    public void laplacian() {
+        getGrayMatrix();
+        int tabLaplace[][] = new int[tabGray.length][tabGray[0].length];
+        for(int i = 0;i<tabLaplace.length;i++)
+        {
+            for(int j = 0;j<tabLaplace[0].length;j++)
+            {
+                if(i==0 || j==0 || i==(tabGray.length - 1) ||  j==(tabGray[0].length - 1))
+                {
+                    tabLaplace[i][j] = tabGray[i][j];
+                }
+                else
+                {
+                    int sum = 0;
+                    sum = sum + (tabGray[i][j-1]);                                               // Premiere ligne
+                    sum = sum + (tabGray[i-1][j]) + (tabGray[i][j] * (-4)) + (tabGray[i+1][j]);  // Deuxieme ligne
+                    sum = sum + (tabGray[i+1][j+1]);                                             // Troisieme ligne
+                    sum = sum + 128;      
+                    if(sum<0)
+                        tabLaplace[i][j] = 0;
+                    else if(sum>255)
+                        tabLaplace[i][j] = 255;
+                    else
+                        tabLaplace[i][j] = sum;
+                }               
+            }
+        }
+        MatrixToImage(tabLaplace);
+    }
+    
+    public void kirsch() {
+        getGrayMatrix();
+        int tabKirsch[][] = new int[tabGray.length][tabGray[0].length];
+        for(int i = 0;i<tabKirsch.length;i++)
+        {
+            for(int j = 0;j<tabKirsch[0].length;j++)
+            {
+                if(i==0 || j==0 || i==(tabGray.length - 1) ||  j==(tabGray[0].length - 1))
+                {
+                    tabKirsch[i][j] = tabGray[i][j];
+                }
+                else
+                {
+                    Vector<Integer> vect = new Vector();
+                    int g1,g2,g3,g4,g5,g6,g7,g8,elem;
+                    g1 = (tabGray[i-1][j-1] * 5) + (tabGray[i][j-1] * 5) + (tabGray[i+1][j-1] * 5) - (tabGray[i-1][j] * 3) - (tabGray[i+1][j] * 3) - (tabGray[i-1][j+1] * 3) - (tabGray[i][j+1] * 3) - (tabGray[i+1][j+1] * 3);
+                    g2 = (tabGray[i-1][j-1] * 5) + (tabGray[i][j-1] * 5) - (tabGray[i+1][j-1] * 3) + (tabGray[i-1][j] * 5) - (tabGray[i+1][j] * 3) - (tabGray[i-1][j+1] * 3) - (tabGray[i][j+1] * 3) - (tabGray[i+1][j+1] * 3);
+                    g3 = (tabGray[i-1][j-1] * 5) - (tabGray[i][j-1] * 3) - (tabGray[i+1][j-1] * 3) + (tabGray[i-1][j] * 5) - (tabGray[i+1][j] * 3) + (tabGray[i-1][j+1] * 5) - (tabGray[i][j+1] * 3) - (tabGray[i+1][j+1] * 3);
+                    g4 = (tabGray[i-1][j-1] * -3) - (tabGray[i][j-1] * 3) - (tabGray[i+1][j-1] * 3) + (tabGray[i-1][j] * 5) - (tabGray[i+1][j] * 3) + (tabGray[i-1][j+1] * 5) + (tabGray[i][j+1] * 5) - (tabGray[i+1][j+1] * 3);
+                    g5 = (tabGray[i-1][j-1] * -3) - (tabGray[i][j-1] * 3) - (tabGray[i+1][j-1] * 3) - (tabGray[i-1][j] * 3) - (tabGray[i+1][j] * 3) + (tabGray[i-1][j+1] * 5) + (tabGray[i][j+1] * 5) + (tabGray[i+1][j+1] * 5);
+                    g6 = (tabGray[i-1][j-1] * -3) - (tabGray[i][j-1] * 3) - (tabGray[i+1][j-1] * 3) - (tabGray[i-1][j] * 3) + (tabGray[i+1][j] * 5) - (tabGray[i-1][j+1] * 3) + (tabGray[i][j+1] * 5) + (tabGray[i+1][j+1] * 5);
+                    g7 = (tabGray[i-1][j-1] * -3) - (tabGray[i][j-1] * 3) + (tabGray[i+1][j-1] * 5) - (tabGray[i-1][j] * 3) + (tabGray[i+1][j] * 5) - (tabGray[i-1][j+1] * 3) - (tabGray[i][j+1] * 3) + (tabGray[i+1][j+1] * 5);
+                    g8 = (tabGray[i-1][j-1] * -3) + (tabGray[i][j-1] * 5) + (tabGray[i+1][j-1] * 5) - (tabGray[i-1][j] * 3) + (tabGray[i+1][j] * 5) - (tabGray[i-1][j+1] * 3) - (tabGray[i][j+1] * 3) - (tabGray[i+1][j+1] * 3);
+                    vect.add(g1);
+                    vect.add(g2);
+                    vect.add(g3);
+                    vect.add(g4);
+                    vect.add(g5);
+                    vect.add(g6);
+                    vect.add(g7);
+                    vect.add(g8);
+                    sort(vect);
+                    elem = vect.elementAt(7);
+                    if(elem < 0)
+                        elem = 0;
+                    else if(elem > 255)
+                        elem = 255;
+                    tabKirsch[i][j] = elem;
+                }               
+            }
+        }
+        MatrixToImage(tabKirsch);
+    }
+    
+    public void sobel() {
+        getGrayMatrix();
+        int tabSobel[][] = new int[tabGray.length][tabGray[0].length];
+        for(int i = 0;i<tabSobel.length;i++)
+        {
+            for(int j = 0;j<tabSobel[0].length;j++)
+            {
+                if(i==0 || j==0 || i==(tabGray.length - 1) ||  j==(tabGray[0].length - 1))
+                {
+                    tabSobel[i][j] = tabGray[i][j];
+                }
+                else
+                {
+                    int Gx,Gy,elem;
+                    Gx = (tabGray[i-1][j-1]) - (tabGray[i+1][j-1]) + (tabGray[i-1][j] * 2) - (tabGray[i+1][j] * 2) + (tabGray[i-1][j+1]) - (tabGray[i+1][j+1]);
+                    Gy = (tabGray[i-1][j-1]) + (tabGray[i][j-1] * 2) + (tabGray[i+1][j-1]) - (tabGray[i-1][j+1]) - (tabGray[i][j+1] * 2) - (tabGray[i+1][j+1]);
+                    elem = (Gx*Gx) + (Gy*Gy);
+                    elem = (int)sqrt(elem);
+                    if(elem < 0)
+                        elem = 0;
+                    else if(elem > 255)
+                        elem = 255;
+                    tabSobel[i][j] = elem;
+                }               
+            }
+        }
+        MatrixToImage(tabSobel);
+    }
+    
+    public void prewitt() {
+        getGrayMatrix();
+        int tabPrewitt[][] = new int[tabGray.length][tabGray[0].length];
+        for(int i = 0;i<tabPrewitt.length;i++)
+        {
+            for(int j = 0;j<tabPrewitt[0].length;j++)
+            {
+                if(i==0 || j==0 || i==(tabGray.length - 1) ||  j==(tabGray[0].length - 1))
+                {
+                    tabPrewitt[i][j] = tabGray[i][j];
+                }
+                else
+                {
+                    int Gx,Gy,elem;
+                    Gx = (tabGray[i-1][j-1] * -1) + (tabGray[i+1][j-1]) - (tabGray[i-1][j]) + (tabGray[i+1][j]) - (tabGray[i-1][j+1]) + (tabGray[i+1][j+1]);
+                    Gy = (tabGray[i-1][j-1] * -1) - (tabGray[i][j-1]) - (tabGray[i+1][j-1]) + (tabGray[i-1][j+1]) + (tabGray[i][j+1]) + (tabGray[i+1][j+1]);
+                    elem = (Gx*Gx) + (Gy*Gy);
+                    elem = (int)sqrt(elem);
+                    if(elem < 0)
+                        elem = 0;
+                    else if(elem > 255)
+                        elem = 255;
+                    tabPrewitt[i][j] = elem;
+                }               
+            }
+        }
+        MatrixToImage(tabPrewitt);
+    }
+    
+    public void roberts() {
+        getGrayMatrix();
+        int tabRoberts[][] = new int[tabGray.length][tabGray[0].length];
+        for(int i = 0;i<tabRoberts.length;i++)
+        {
+            for(int j = 0;j<tabRoberts[0].length;j++)
+            {
+                if(i==(tabGray.length - 1) ||  j==(tabGray[0].length - 1))
+                {
+                    tabRoberts[i][j] = tabGray[i][j];
+                }
+                else
+                {
+                    int Gx,Gy,elem;
+                    Gx = tabGray[i][j] - tabGray[i+1][j+1];
+                    Gy = tabGray[i+1][j] - tabGray[i][j+1];
+                    elem = (Gx*Gx) + (Gy*Gy);
+                    elem = (int)sqrt(elem);
+                    if(elem < 0)
+                        elem = 0;
+                    else if(elem > 255)
+                        elem = 255;
+                    tabRoberts[i][j] = elem;
+                }               
+            }
+        }
+        MatrixToImage(tabRoberts);
     }
 }

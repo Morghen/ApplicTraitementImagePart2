@@ -98,6 +98,15 @@ public class appWindow extends javax.swing.JFrame {
         DilatationMenuItem = new javax.swing.JMenuItem();
         OuvertureMenuItem = new javax.swing.JMenuItem();
         FermetureMenuItem = new javax.swing.JMenuItem();
+        FiltresMenu = new javax.swing.JMenu();
+        MedianMenuItem = new javax.swing.JMenuItem();
+        MoyenMenuItem = new javax.swing.JMenuItem();
+        GaussMenuItem = new javax.swing.JMenuItem();
+        LaplaceMenuItem = new javax.swing.JMenuItem();
+        KirschMenuItem = new javax.swing.JMenuItem();
+        SobelMenuItem = new javax.swing.JMenuItem();
+        PrewittMenuItem = new javax.swing.JMenuItem();
+        RobertsMenuItem = new javax.swing.JMenuItem();
         aproposMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -319,6 +328,74 @@ public class appWindow extends javax.swing.JFrame {
             }
         });
         editionMenu.add(FermetureMenuItem);
+
+        FiltresMenu.setText("Filtres");
+
+        MedianMenuItem.setText("Median");
+        MedianMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MedianMenuItemActionPerformed(evt);
+            }
+        });
+        FiltresMenu.add(MedianMenuItem);
+
+        MoyenMenuItem.setText("Moyenneur");
+        MoyenMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MoyenMenuItemActionPerformed(evt);
+            }
+        });
+        FiltresMenu.add(MoyenMenuItem);
+
+        GaussMenuItem.setText("Gaussien");
+        GaussMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GaussMenuItemActionPerformed(evt);
+            }
+        });
+        FiltresMenu.add(GaussMenuItem);
+
+        LaplaceMenuItem.setText("Laplacien");
+        LaplaceMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LaplaceMenuItemActionPerformed(evt);
+            }
+        });
+        FiltresMenu.add(LaplaceMenuItem);
+
+        KirschMenuItem.setText("Kirsch");
+        KirschMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KirschMenuItemActionPerformed(evt);
+            }
+        });
+        FiltresMenu.add(KirschMenuItem);
+
+        SobelMenuItem.setText("Sobel");
+        SobelMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SobelMenuItemActionPerformed(evt);
+            }
+        });
+        FiltresMenu.add(SobelMenuItem);
+
+        PrewittMenuItem.setText("Prewitt");
+        PrewittMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PrewittMenuItemActionPerformed(evt);
+            }
+        });
+        FiltresMenu.add(PrewittMenuItem);
+
+        RobertsMenuItem.setText("Roberts");
+        RobertsMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RobertsMenuItemActionPerformed(evt);
+            }
+        });
+        FiltresMenu.add(RobertsMenuItem);
+
+        editionMenu.add(FiltresMenu);
 
         menuPrincipal.add(editionMenu);
 
@@ -588,6 +665,54 @@ public class appWindow extends javax.swing.JFrame {
         imageLabelD.setIcon(new ImageIcon(imgTrt.getImage()));
     }//GEN-LAST:event_FermetureMenuItemActionPerformed
 
+    private void MedianMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MedianMenuItemActionPerformed
+        imgTrt.setImage(imageDep);
+        imgTrt.median();
+        imageLabelD.setIcon(new ImageIcon(imgTrt.getImage()));
+    }//GEN-LAST:event_MedianMenuItemActionPerformed
+
+    private void MoyenMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MoyenMenuItemActionPerformed
+        imgTrt.setImage(imageDep);
+        imgTrt.moyen();
+        imageLabelD.setIcon(new ImageIcon(imgTrt.getImage()));
+    }//GEN-LAST:event_MoyenMenuItemActionPerformed
+
+    private void LaplaceMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LaplaceMenuItemActionPerformed
+        imgTrt.setImage(imageDep);
+        imgTrt.laplacian();
+        imageLabelD.setIcon(new ImageIcon(imgTrt.getImage()));
+    }//GEN-LAST:event_LaplaceMenuItemActionPerformed
+
+    private void GaussMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GaussMenuItemActionPerformed
+        imgTrt.setImage(imageDep);
+        imgTrt.gauss();
+        imageLabelD.setIcon(new ImageIcon(imgTrt.getImage()));
+    }//GEN-LAST:event_GaussMenuItemActionPerformed
+
+    private void KirschMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KirschMenuItemActionPerformed
+        imgTrt.setImage(imageDep);
+        imgTrt.kirsch();
+        imageLabelD.setIcon(new ImageIcon(imgTrt.getImage()));
+    }//GEN-LAST:event_KirschMenuItemActionPerformed
+
+    private void SobelMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SobelMenuItemActionPerformed
+        imgTrt.setImage(imageDep);
+        imgTrt.sobel();
+        imageLabelD.setIcon(new ImageIcon(imgTrt.getImage()));
+    }//GEN-LAST:event_SobelMenuItemActionPerformed
+
+    private void PrewittMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrewittMenuItemActionPerformed
+        imgTrt.setImage(imageDep);
+        imgTrt.prewitt();
+        imageLabelD.setIcon(new ImageIcon(imgTrt.getImage()));
+    }//GEN-LAST:event_PrewittMenuItemActionPerformed
+
+    private void RobertsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RobertsMenuItemActionPerformed
+        imgTrt.setImage(imageDep);
+        imgTrt.roberts();
+        imageLabelD.setIcon(new ImageIcon(imgTrt.getImage()));
+    }//GEN-LAST:event_RobertsMenuItemActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -705,16 +830,25 @@ public class appWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem EgalisationHistoMenuItem;
     private javax.swing.JMenuItem ErosionMenuItem;
     private javax.swing.JMenuItem FermetureMenuItem;
+    private javax.swing.JMenu FiltresMenu;
+    private javax.swing.JMenuItem GaussMenuItem;
     private javax.swing.ButtonGroup GroupageBouttonOutils;
     private javax.swing.JMenuItem HistogramMenuItem;
+    private javax.swing.JMenuItem KirschMenuItem;
     private javax.swing.JLabel LabelB;
     private javax.swing.JLabel LabelG;
     private javax.swing.JLabel LabelHauteur;
     private javax.swing.JLabel LabelLargeur;
     private javax.swing.JLabel LabelR;
+    private javax.swing.JMenuItem LaplaceMenuItem;
+    private javax.swing.JMenuItem MedianMenuItem;
+    private javax.swing.JMenuItem MoyenMenuItem;
     private javax.swing.JMenuItem OuvertureMenuItem;
+    private javax.swing.JMenuItem PrewittMenuItem;
+    private javax.swing.JMenuItem RobertsMenuItem;
     private javax.swing.JMenuItem SeuillageMenuItem;
     private javax.swing.JMenuItem SeuillageMultMenuItem;
+    private javax.swing.JMenuItem SobelMenuItem;
     private javax.swing.JMenu aproposMenu;
     private javax.swing.JToolBar barreOutils;
     private javax.swing.JMenu editionMenu;
