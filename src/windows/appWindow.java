@@ -107,6 +107,7 @@ public class appWindow extends javax.swing.JFrame {
         SobelMenuItem = new javax.swing.JMenuItem();
         PrewittMenuItem = new javax.swing.JMenuItem();
         RobertsMenuItem = new javax.swing.JMenuItem();
+        AutoMenuItem = new javax.swing.JMenuItem();
         aproposMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -396,6 +397,14 @@ public class appWindow extends javax.swing.JFrame {
         FiltresMenu.add(RobertsMenuItem);
 
         editionMenu.add(FiltresMenu);
+
+        AutoMenuItem.setText("Auto-seuillage");
+        AutoMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AutoMenuItemActionPerformed(evt);
+            }
+        });
+        editionMenu.add(AutoMenuItem);
 
         menuPrincipal.add(editionMenu);
 
@@ -713,6 +722,12 @@ public class appWindow extends javax.swing.JFrame {
         imageLabelD.setIcon(new ImageIcon(imgTrt.getImage()));
     }//GEN-LAST:event_RobertsMenuItemActionPerformed
 
+    private void AutoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AutoMenuItemActionPerformed
+        imgTrt.setImage(imageDep);
+        imgTrt.autothres();
+        imageLabelD.setIcon(new ImageIcon(imgTrt.getImage()));
+    }//GEN-LAST:event_AutoMenuItemActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -822,6 +837,7 @@ public class appWindow extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem AutoMenuItem;
     private javax.swing.JRadioButton BouttonAgrandir;
     private javax.swing.JRadioButton BouttonPalette;
     private javax.swing.JRadioButton BouttonROI;

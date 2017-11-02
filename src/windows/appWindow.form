@@ -190,6 +190,14 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
+            <MenuItem class="javax.swing.JMenuItem" name="AutoMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Auto-seuillage"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AutoMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="aproposMenu">

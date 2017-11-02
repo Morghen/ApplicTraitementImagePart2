@@ -616,4 +616,68 @@ public class traitementImage {
         }
         MatrixToImage(tabRoberts);
     }
+    
+    public void autothres() {
+        getGrayMatrix();
+        int tabAuto[][] = new int[tabGray.length][tabGray[0].length];
+        int h,w,size;
+        h = this.getHeight();
+        w = this.getWidth();
+        size = h*w;
+        Map<Integer,Integer> histoN = new TreeMap();
+        for(int i = 0;i<256;i++)
+        {
+            histoN.put(i, 0);
+        }
+        // Mappage sur table normale
+        for(int i = 0;i<tabGray.length;i++)
+        {
+            for(int j = 0;j<tabGray[0].length;j++)
+            {
+                if(histoN.containsKey(tabGray[i][j]))
+                {
+                    histoN.replace(tabGray[i][j], histoN.get(tabGray[i][j]) + 1);
+                }
+            }
+        }
+        // Methode Otsu
+        int seuil = 0,varMax = 0,sum = 0,sumB = 0,q1 = 0,q2 = 0,u1 = 0,u2 = 0,covar = 0;
+        for(int i = 0;i<256;i++)
+        {
+            sum += i * histoN.get(i);
+        }
+        for(int t = 0;t<256;t++)
+        {
+            q1 += histoN.get(t);
+            if(q1 == 0)
+                continue;
+            q2 = size - q1;
+            if(q2 == 0)
+                continue;
+            
+            sumB += t * histoN.get(t);
+            u1 = sumB/q1;
+            u2 = (sum - sumB)/q2;
+            
+            covar = q1 * q2 * ((u1 - u2) * (u1 - u2));
+            
+            if(covar > varMax)
+            {
+                seuil = t;
+                varMax = covar;
+            }
+        }
+        
+        for(int i = 0;i<tabGray.length;i++)
+        {
+            for(int j = 0;j<tabGray[0].length;j++)
+            {
+                if(tabGray[i][j] > seuil)
+                    tabAuto[i][j] = 255;
+                else
+                    tabAuto[i][j] = 0;
+            }
+        }
+        MatrixToImage(tabAuto);
+    }
 }
