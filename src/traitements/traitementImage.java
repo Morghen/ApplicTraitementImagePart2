@@ -206,14 +206,17 @@ public class traitementImage {
     }
     
     public void getGrayMatrix() {
-        ImageToMatrix();
-        int[][] tabGrayTmp = new int[tabR.length][tabR[0].length];
-        for(int i = 0;i<tabR.length;i++)
+        BufferedImage grey = new BufferedImage(imgPrinc.getWidth(),imgPrinc.getHeight(),BufferedImage.TYPE_BYTE_GRAY);
+        Graphics g = grey.getGraphics();
+        g.drawImage(imgPrinc,0,0,null);
+        g.dispose();
+        int[][] tabGrayTmp = new int[imgPrinc.getWidth()][imgPrinc.getHeight()];
+        for(int i = 0;i<tabGrayTmp.length;i++)
         {
-            for(int j = 0;j<tabR[0].length;j++)
+            for(int j = 0;j<tabGrayTmp[0].length;j++)
             {
-                double avg = (double)(tabR[i][j]*0.299) + (double)(tabG[i][j]*0.587) + (double)(tabB[i][j]*0.114);
-                tabGrayTmp[i][j] = (int)avg;
+                Color tmp = new Color(grey.getRGB(i, j));
+                tabGrayTmp[i][j] = (tmp.getRed() + tmp.getGreen() + tmp.getBlue()) / 3;
             }
         }
         this.tabGray = tabGrayTmp;
@@ -606,6 +609,7 @@ public class traitementImage {
                     Gy = tabGray[i+1][j] - tabGray[i][j+1];
                     elem = (Gx*Gx) + (Gy*Gy);
                     elem = (int)sqrt(elem);
+                    elem = elem + 128;
                     if(elem < 0)
                         elem = 0;
                     else if(elem > 255)
