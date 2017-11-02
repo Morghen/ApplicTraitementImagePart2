@@ -684,4 +684,30 @@ public class traitementImage {
         }
         MatrixToImage(tabAuto);
     }
+    
+    public void hysteresis() {
+        getGrayMatrix();
+        int tabHyst[][] = new int[tabGray.length][tabGray[0].length];
+        int upper = 167,lower = 100,prec = 0;
+        for(int i = 0;i<tabGray.length;i++)
+        {
+            for(int j = 0;j<tabGray[0].length;j++)
+            {
+                if(tabGray[i][j] >= upper)
+                {
+                    tabHyst[i][j] = 255;
+                    prec = 255;
+                }
+                else if(tabGray[i][j] <= lower)
+                {
+                    tabHyst[i][j] = 0;
+                    prec = 0;
+                }
+                else
+                    tabHyst[i][j] = prec;             
+            }
+        }
+        MatrixToImage(tabHyst);
+        
+    }
 }

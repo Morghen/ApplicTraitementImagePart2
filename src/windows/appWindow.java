@@ -108,6 +108,7 @@ public class appWindow extends javax.swing.JFrame {
         PrewittMenuItem = new javax.swing.JMenuItem();
         RobertsMenuItem = new javax.swing.JMenuItem();
         AutoMenuItem = new javax.swing.JMenuItem();
+        HystMenuItem = new javax.swing.JMenuItem();
         aproposMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -405,6 +406,14 @@ public class appWindow extends javax.swing.JFrame {
             }
         });
         editionMenu.add(AutoMenuItem);
+
+        HystMenuItem.setText("Seuillage par hystérésis");
+        HystMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HystMenuItemActionPerformed(evt);
+            }
+        });
+        editionMenu.add(HystMenuItem);
 
         menuPrincipal.add(editionMenu);
 
@@ -728,6 +737,12 @@ public class appWindow extends javax.swing.JFrame {
         imageLabelD.setIcon(new ImageIcon(imgTrt.getImage()));
     }//GEN-LAST:event_AutoMenuItemActionPerformed
 
+    private void HystMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HystMenuItemActionPerformed
+        imgTrt.setImage(imageDep);
+        imgTrt.hysteresis();
+        imageLabelD.setIcon(new ImageIcon(imgTrt.getImage()));
+    }//GEN-LAST:event_HystMenuItemActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -850,6 +865,7 @@ public class appWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem GaussMenuItem;
     private javax.swing.ButtonGroup GroupageBouttonOutils;
     private javax.swing.JMenuItem HistogramMenuItem;
+    private javax.swing.JMenuItem HystMenuItem;
     private javax.swing.JMenuItem KirschMenuItem;
     private javax.swing.JLabel LabelB;
     private javax.swing.JLabel LabelG;
